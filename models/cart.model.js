@@ -1,24 +1,8 @@
-const mongoose = require('mongoose');
+const mongoose = require('mongoose');	
 
-const cartSchema = new mongoose.Schema({
-    is_order: {
-        type: Boolean,
-        default: false
-    },
-    account_id: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'account'
-    },
-    items: [{
-        food: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'food'
-        },
-        quantity: {
-            type: Number,
-            default: 1
-        }
-    }]
+const CartSchema = new mongoose.Schema({
+    is_order: { type: Boolean, required: true },
+    account_id: { type: mongoose.Schema.Types.ObjectId, ref: 'accounts', required: true }
 });
 
-module.exports = mongoose.model('Cart', cartSchema);
+module.exports = mongoose.model('cart', CartSchema);    
