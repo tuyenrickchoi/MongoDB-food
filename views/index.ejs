@@ -4,14 +4,51 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Data from API</title>
+  <style>
+    .foods-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+    }
+    .foods-item img {
+      max-width: 50px;
+      margin-right: 10px;
+    }
+    .actions {
+      display: flex;
+      gap: 10px;
+    }
+  </style>
 </head>
 <body>
-  <h1>Data from API</h1>
-  <ul>
-    <% data.forEach(item => { %>
-      <li><%= item.name %></li>
-      <img src="<%= item.img %>" alt="">
-    <% }) %>
-  </ul>
+  <header>
+    <h1>foods Management</h1>
+  </header>
+  <div class="container">
+    <h1>foods List</h1>
+    <a href="/foods/new" class="btn">Add New foods</a>
+    <ul>
+      <% data.forEach(food => { %>
+        <li class="foods-item">
+          <div>
+            <img src="<%= food.img %>" alt="<%= food.name %>">
+            <span><%= food.name %> - $<%= food.price %></span>
+            <p>Category ID: <%= food.category_id %></p>
+            <p>Address: <%= food.address %></p>
+          </div>
+          <div class="actions">
+            <a href="/foods/<%= food._id %>/edit">Edit</a>
+            <form action="/foods/<%= food._id %>?_method=DELETE" method="POST" style="display:inline;">
+              <button type="submit">Delete</button>
+            </form>
+          </div>
+        </li>
+      <% }) %>
+    </ul>
+  </div>
 </body>
 </html>
